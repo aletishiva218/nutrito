@@ -19,14 +19,17 @@ const app = express()
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
-app.use((req,res,next) => {
+
+app.use("/api/*",(req,res,next) => {
     const sk = req.query.secretkey
     if(!sk || sk!==secretKey)
         return res.status(401).json({status:"Not Ok",message:"Invalid key user"})
     next()
 })
 
-app.get("/",(req,res)=>res.send("Api is working"))
+
+app.get("/api/",(req,res)=>res.status(200).json({status:"Ok",message:"Api is working"}))
+
 app.post("/api/register",registerMiddleware.allDetails,registerMiddleware.validDetails,registerMiddleware.userExists,register)
 app.post("/api/login",loginMiddleware.allDetails,loginMiddleware.userNotExists,login)
 
