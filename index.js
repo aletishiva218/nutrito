@@ -1,6 +1,5 @@
 import express from "express"
 import cors from "cors";
-import axios from "axios";
 
 import register from "./Routes/routes/register.js";
 import login from "./Routes/routes/login.js";
