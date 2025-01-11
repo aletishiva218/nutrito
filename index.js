@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors";
+import axios from "axios";
 
 import register from "./Routes/routes/register.js";
 import login from "./Routes/routes/login.js";
@@ -23,12 +24,11 @@ app.use(express.json())
 app.use("/api/*",(req,res,next) => {
     const sk = req.query.secretkey
     if(!sk || sk!==secretKey)
-        return res.status(401).json({status:"Not Ok",message:"Invalid key user"})
+        return res.status(401).json({statusCode:401,status:"Not Ok",message:"key not found or Invalid key"})
     next()
 })
 
-
-app.get("/api/",(req,res)=>res.status(200).json({status:"Ok",message:"Api is working"}))
+app.get("/api/",(req,res)=>res.status(200).json({statusCode:200,status:"Ok",message:"Api is working"}))
 
 app.post("/api/register",registerMiddleware.allDetails,registerMiddleware.validDetails,registerMiddleware.userExists,register)
 app.post("/api/login",loginMiddleware.allDetails,loginMiddleware.userNotExists,login)

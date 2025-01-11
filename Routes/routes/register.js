@@ -140,7 +140,7 @@ const register = async (req,res) => {
             }
         }
     await userModal.create({userId:userId,settings:setting})
-    return res.status(201).json({status:"Ok",message:"user registered successfully"})
+    return res.status(201).json({statusCode:201,status:"Ok",message:"user registered successfully"})
 }
 
 export default register;
