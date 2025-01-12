@@ -1,14 +1,10 @@
 import {userModal} from "../../Database/Modal.js";
 
 const register = async (req,res) => {
-    const {userId,email,user,timestamp} = req.body;
-
-    let userr={home:{data:" "},social:{data:" "},settings:{}};
-    if(user)
-        userr=user;
-    else
-       {   
-        userr.settings = {
+    let {userId,email,home,social,settings,timestamp} = req.body;
+    if(!home) home = {}
+    if(!social) social = {}
+    if(!settings) settings = {
             "profile":{
         
                 "section_1":{
@@ -141,17 +137,15 @@ const register = async (req,res) => {
             }
             }
         }
-       }
 
        //delete after testing
-    let userEmailExists = await userModal.findOne({"user.settings.profile.section_1.email":email})
-
+    let userEmailExists = await userModal.findOne({"settings.profile.section_1.email":email})
+    
     //delete after testing
     if(userEmailExists)
-        await userModal.updateOne({"user.settings.profile.section_1.email":email},{$set:{userId:userId,timestamp:timestamp}})
+        await userModal.updateOne({"settings.profile.section_1.email":email},{$set:{userId:userId,timestamp:timestamp}})
     else
-        await userModal.create({userId:userId,user:userr,timestamp:timestamp})
-
+            await userModal.create({userId:userId,home:home,social:social,settings:settings,timestamp:timestamp})
    
     return res.status(201).json({statusCode:201,status:"Ok",message:"user registered successfully"})
 }
