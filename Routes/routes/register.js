@@ -1,12 +1,14 @@
 import {userModal} from "../../Database/Modal.js";
 
 const register = async (req,res) => {
-    const {userId,email,settings} = req.body;
-    let setting;
-    if(settings)
-        setting = settings;
+    const {userId,email,user,timestamp} = req.body;
+
+    let userr={home:{data:" "},social:{data:" "},settings:{}};
+    if(user)
+        userr=user;
     else
-        setting = {
+       {   
+        userr.settings = {
             "profile":{
         
                 "section_1":{
@@ -139,7 +141,8 @@ const register = async (req,res) => {
             }
             }
         }
-    await userModal.create({userId:userId,settings:setting})
+       }
+    await userModal.create({userId:userId,user:userr,timestamp:timestamp})
     return res.status(201).json({statusCode:201,status:"Ok",message:"user registered successfully"})
 }
 

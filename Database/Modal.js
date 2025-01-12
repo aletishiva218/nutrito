@@ -2,7 +2,8 @@ import mongoose from "./Config.js";
 
 const userSchema = mongoose.Schema({
    userId:String,
-   settings:Object
+   user:Object,
+   timestamp:String
 })
 
 const userModal = new mongoose.model("users",userSchema)
