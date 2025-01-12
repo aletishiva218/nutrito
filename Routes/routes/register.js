@@ -142,7 +142,17 @@ const register = async (req,res) => {
             }
         }
        }
-    await userModal.create({userId:userId,user:userr,timestamp:timestamp})
+
+       //delete after testing
+    let userEmailExists = await userModal.findOne({"user.settings.profile.section_1.email":email})
+
+    //delete after testing
+    if(userEmailExists)
+        await userModal.updateOne({"user.settings.profile.section_1.email":email},{$set:{userId:userId,timestamp:timestamp}})
+    else
+        await userModal.create({userId:userId,user:userr,timestamp:timestamp})
+
+   
     return res.status(201).json({statusCode:201,status:"Ok",message:"user registered successfully"})
 }
 
