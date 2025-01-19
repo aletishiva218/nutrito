@@ -8,6 +8,13 @@ const userSchema = mongoose.Schema({
    timestamp:String
 },{minimize:false})
 
-const userModal = new mongoose.model("users",userSchema)
+const nutrilizationSchema = mongoose.Schema({
+   userId:String,
+   email:String,
+   data:Array
+},{minimize:false})
 
-export {userModal};
+const userModal = new mongoose.model("users",userSchema)
+const nutrilizationModel = new mongoose.model("nutrilization",nutrilizationSchema)
+
+export {userModal,nutrilizationModel};

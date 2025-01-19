@@ -2,15 +2,14 @@ import {userModal} from "../../Database/Modal.js";
 import dotenv from "dotenv";
 dotenv.config()
 
-const settingsMiddleware = {
+const postMiddleware = {
     allDetails:(req,res,next) => {
         const userId = req.params.userId;
         if(!userId)
             return res.status(404).json({statusCode:404,status:"Not Ok",message:"userId is missing"})
-        const {profile,settings,scans} = user.body;
-        if(!profile && settings && scans)
-            return res.status(404).json({statusCode:404,status:"Not Ok",message:"data in the body is missing"})
-
+        const {post} = user.body;
+        if(!post)
+            return res.status(404).json({statusCode:404,status:"Not Ok",message:"post is missing"})
         next()
     },
     userNotExists:async (req,res,next) => {
@@ -22,4 +21,4 @@ const settingsMiddleware = {
     }
 }
 
-export default settingsMiddleware;
+export default postMiddleware;

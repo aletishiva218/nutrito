@@ -1,4 +1,4 @@
-import {userModal} from "../../Database/Modal.js";
+import {userModal,nutrilizationModel} from "../../Database/Modal.js";
 
 const register = async (req,res) => {
     let {userId,email,home,social,settings,timestamp} = req.body;
@@ -138,14 +138,21 @@ const register = async (req,res) => {
             }
         }
 
+        
        //delete after testing
     let userEmailExists = await userModal.findOne({"settings.profile.section_1.email":email})
     
     //delete after testing
     if(userEmailExists)
+    {
+        await nutrilizationModel.updateOne({userId:userEmailExists.userId},{$set:{userId:userId}})
         await userModal.updateOne({"settings.profile.section_1.email":email},{$set:{userId:userId,timestamp:timestamp}})
+    }
     else
-            await userModal.create({userId:userId,home:home,social:social,settings:settings,timestamp:timestamp})
+                {
+                    await nutrilizationModel.create({userId:userId,data:[]})
+                    await userModal.create({userId:userId,home:home,social:social,settings:settings,timestamp:timestamp})
+                }
    
     return res.status(201).json({statusCode:201,status:"Ok",message:"user registered successfully"})
 }
