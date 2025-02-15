@@ -14,7 +14,18 @@ const nutrilizationSchema = mongoose.Schema({
    data:Array
 },{minimize:false})
 
+const alternativeProductSchema = mongoose.Schema({
+   name:{type:String,required:true},
+   description:{type:String,required:true},
+   health_benefits:{type:Array,required:true},
+   common_uses:{type:Array,required:true},
+   image_url:{type:String,required:true}
+},{minimize:false})
+
+
+
 const userModal = new mongoose.model("users",userSchema)
 const nutrilizationModel = new mongoose.model("nutrilization",nutrilizationSchema)
+const alternativeProductModel = new mongoose.model("alternative",alternativeProductSchema)
 
-export {userModal,nutrilizationModel};
+export {userModal,nutrilizationModel,alternativeProductModel};
