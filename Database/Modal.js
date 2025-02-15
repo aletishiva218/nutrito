@@ -26,6 +26,6 @@ const alternativeProductSchema = mongoose.Schema({
 
 const userModal = new mongoose.model("users",userSchema)
 const nutrilizationModel = new mongoose.model("nutrilization",nutrilizationSchema)
-const alternativeProductModel = new mongoose.model("alternative",alternativeProductSchema)
+const alternativeProductModel = new mongoose.model("alternative_products",alternativeProductSchema)
 
 export {userModal,nutrilizationModel,alternativeProductModel};
