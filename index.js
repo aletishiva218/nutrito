@@ -46,7 +46,7 @@ app.put("/api/:userId/settings",settingsMiddleware.allDetails,settingsMiddleware
 app.post("/api/:userId/nutrilization",nutrilizationMiddleware.allDetails,nutrilizationMiddleware.userNotExists,nutrilization)
 
 app.get("/api/alternativeproducts",alternativeProducts.get)
-app.get("/api/alternativeproducts/search",alternativeProductsMiddleware.search,alternativeProducts.search)
+app.get("/api/products/search",alternativeProductsMiddleware.search,alternativeProducts.search)
 app.patch("/api/alternativeproducts",alternativeProductsMiddleware.areProducts,alternativeProductsMiddleware.isCorrectArray,alternativeProducts.add)
 
 //pending
