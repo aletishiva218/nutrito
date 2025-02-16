@@ -8,14 +8,12 @@ import scansSettings from "./Routes/routes/scansSettings.js";
 import settingsSettings from "./Routes/routes/settingsSettings.js";
 import nutrilization from "./Routes/routes/nutrilization.js";
 import alternativeProducts from "./Routes/routes/alternativeProducts.js";
-import postCreate from "./Routes/routes/postCreate.js";
 
 import registerMiddleware from "./Routes/middlewares/register.js";
 import loginMiddleware from "./Routes/middlewares/login.js";
 import settingsMiddleware from "./Routes/middlewares/settings.js";
 import nutrilizationMiddleware from "./Routes/middlewares/nutrilization.js";
 import alternativeProductsMiddleware from "./Routes/middlewares/alternativeProducts.js";
-import postMiddleware from "./Routes/middlewares/post.js";
 
 
 import dotenv from "dotenv";
@@ -48,6 +46,7 @@ app.put("/api/:userId/settings",settingsMiddleware.allDetails,settingsMiddleware
 app.post("/api/:userId/nutrilization",nutrilizationMiddleware.allDetails,nutrilizationMiddleware.userNotExists,nutrilization)
 
 app.get("/api/alternativeproducts",alternativeProducts.get)
+app.get("/api/alternativeproducts/search",alternativeProductsMiddleware.search,alternativeProducts.search)
 app.patch("/api/alternativeproducts",alternativeProductsMiddleware.areProducts,alternativeProductsMiddleware.isCorrectArray,alternativeProducts.add)
 
 //pending
