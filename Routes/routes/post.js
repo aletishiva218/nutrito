@@ -106,13 +106,19 @@ const post = {
             res.status(500).json({statusCode:500,message:"Error while adding into favourite category",error:err.message});
         }
       },
-      getUserPosts:async (req, res) => {
+      getUserPosts: async (req, res) => {
         try {
-          if (!mongoose.Types.ObjectId.isValid(req.params.userId))return res.status(400).json({statusCode:400, message: 'Invalid User ID' });
-          const posts = await postModel.find({ user: req.params.userId });
-          res.status(200).json({statusCode:200,message:"user posts fetched successfully",post:posts});
+          const userId = req.params.userId;
+                if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ statusCode: 400, message: 'Invalid User ID' });
+          }
+          const posts = await postModel.find({ user: userId });
+                if (posts.length === 0) {
+            return res.status(404).json({ statusCode: 404, message: 'User ID not found or no posts available' });
+          }
+          res.status(200).json({ statusCode: 200, message: "User posts fetched successfully", post: posts });
         } catch (err) {
-          res.status(500).json({statusCode:500,message:"Error while getting user posts",error:err.message});
+          res.status(500).json({ statusCode: 500, message: "Error while getting user posts", error: err.message });
         }
       },
       getUserLikedPosts: async (req, res) => {
